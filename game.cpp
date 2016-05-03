@@ -1,7 +1,8 @@
 #include "game.h"
+#include <QKeyEvent>
 
 int x=0;
-Game::Game()
+Game::Game(QObject *parent) : QObject(parent)
 {
     //Neues Grafikfenster erstellen
     view = new QGraphicsView();
@@ -19,7 +20,7 @@ Game::Game()
 
 void Game::gameloop()
 {
-
+    qDebug()<<"tick..";
     draw();
 }
 
@@ -37,4 +38,31 @@ void Game::draw()
      //   view = new QGraphicsView();
     view->setScene(scene);
     view->show();
+}
+
+
+void Game::keyPressEvent(QKeyEvent *event)
+{
+    qDebug()<<"Taste gedrückt";
+    if(event->key() == Qt::Key_Left)
+        Key_Left = 1;
+    if(event->key() == Qt::Key_Right)
+       Key_Right = 1;
+    if(event->key() == Qt::Key_Up)
+       Key_Up = 1;
+    if(event->key() == Qt::Key_Down)
+        Key_Down = 1;
+}
+
+void Game::keyReleaseEvent(QKeyEvent *event)
+{
+    qDebug()<<"Taste losgelassen";
+    if(event->key() == Qt::Key_Left)
+        Key_Left = 0;
+    if(event->key() == Qt::Key_Right)
+       Key_Right = 0;
+    if(event->key() == Qt::Key_Up)
+       Key_Up = 0;
+    if(event->key() == Qt::Key_Down)
+       Key_Down = 0;
 }

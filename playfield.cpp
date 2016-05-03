@@ -25,7 +25,6 @@ char playfieldDesign[PLAYFIELD_SIZE_Y][PLAYFIELD_SIZE_X] =
 
 Playfield::Playfield()
 {
-
     int startpos_x = 0;
     int startpos_y = 0;
 
