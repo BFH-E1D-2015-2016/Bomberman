@@ -17,13 +17,15 @@ SOURCES += main.cpp \
     playfield.cpp \
     block.cpp \
     player.cpp \
-    game.cpp
+    game.cpp \
+    bomb.cpp
 
 HEADERS  += \
     myrect.h \
     playfield.h \
     block.h \
     player.h \
-    game.h
+    game.h \
+    bomb.h
 
 FORMS    +=
