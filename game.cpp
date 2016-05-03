@@ -1,12 +1,7 @@
 #include "game.h"
-#include <QKeyEvent>
 
-int x=0;
-Game::Game(QObject *parent) : QObject(parent)
+Game::Game()
 {
-    //Neues Grafikfenster erstellen
-    view = new QGraphicsView();
-
     //Spieltimer initsialisieren
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()),this,SLOT(gameloop()));
@@ -33,11 +28,9 @@ void Game::draw()
     playfield->Draw(scene);
 
     //Scene mit Spielfeld darstellen
-
-    //if(view==NULL)
-     //   view = new QGraphicsView();
-    view->setScene(scene);
-    view->show();
+    setScene(scene);
+    show();
+    setFocus();
 }
 
 
