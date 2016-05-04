@@ -75,11 +75,15 @@ void Playfield::current_hightlite(int PosX, int PosY)
       int x = PosX / BLOCK_SIZE_X;
       int y = PosY / BLOCK_SIZE_Y;
 
+      qDebug()<< x<<y << PosX<<PosY;
+
       if(hightlite_block != NULL)
       {
         hightlite_block->reset_Blockbehavoir();
-        //hightlite_block = NULL;
       }
-      hightlite_block = playfieldBlocks[x][y];
-      hightlite_block->set_Blockbehavoir(MODE_DEBUG);
+      if(x>=0 && y>=0 && x<PLAYFIELD_SIZE_X && y<PLAYFIELD_SIZE_Y)
+      {
+          hightlite_block = playfieldBlocks[y][x];
+          hightlite_block->set_Blockbehavoir(MODE_DEBUG);
+      }
 }

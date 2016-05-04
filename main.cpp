@@ -9,10 +9,18 @@
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
+    try
+    {
+        QApplication a(argc, argv);
 
-    Game * game = new Game();
-    game->draw();
+        Game * game = new Game();
+        return a.exec();
 
-    return a.exec();
+    }
+    catch (const std::exception &exc)
+    {
+        // catch anything thrown within try block that derives from std::exception
+        qDebug()<<"error: " << exc.what();
+    }
+
 }

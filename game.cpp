@@ -2,30 +2,54 @@
 
 Game::Game()
 {
+    Key_Down = Key_Left = Key_Right = Key_Up =0;
+
     //Spieltimer initsialisieren
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()),this,SLOT(gameloop()));
 
+
     // Spielfelg generieren
     playfield = new Playfield();
+    player = new Player(playfield);
+
+
+    //Scene erstellen
+scene = new QGraphicsScene();
+
+    //Spielfeld zeichen
+    playfield->Draw(scene);
+    scene->addItem(player);
 
     //Timer starten
-    timer->start(1000);
+    timer->start(33);
+}
+
+Game::~Game()
+{
+    timer->stop();
 }
 
 void Game::gameloop()
 {
-    qDebug()<<"tick..";
+    int move=3, moveX=0,moveY=0;
+
+    if(Key_Up)
+        moveY -= move;
+    if(Key_Down)
+        moveY += move;
+
+    if(Key_Left)
+        moveX -= move;
+    if(!Key_Left && Key_Right)
+       moveX += move;
+    if(moveX || moveY)
+        player->move(moveX, moveY);
     draw();
 }
 
 void Game::draw()
 {
-    //Scene erstellen
-    scene = new QGraphicsScene();
-
-    //Spielfeld zeichen
-    playfield->Draw(scene);
 
     //Scene mit Spielfeld darstellen
     setScene(scene);
@@ -36,7 +60,7 @@ void Game::draw()
 
 void Game::keyPressEvent(QKeyEvent *event)
 {
-    qDebug()<<"Taste gedrückt";
+
     if(event->key() == Qt::Key_Left)
         Key_Left = 1;
     if(event->key() == Qt::Key_Right)
@@ -49,7 +73,7 @@ void Game::keyPressEvent(QKeyEvent *event)
 
 void Game::keyReleaseEvent(QKeyEvent *event)
 {
-    qDebug()<<"Taste losgelassen";
+
     if(event->key() == Qt::Key_Left)
         Key_Left = 0;
     if(event->key() == Qt::Key_Right)
@@ -59,3 +83,4 @@ void Game::keyReleaseEvent(QKeyEvent *event)
     if(event->key() == Qt::Key_Down)
        Key_Down = 0;
 }
+

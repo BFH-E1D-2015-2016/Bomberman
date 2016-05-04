@@ -1,13 +1,14 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <QCloseEvent>
 #include <QKeyEvent>
 #include <QGraphicsView>
 #include <QTimer>
 #include <QDebug>
 
 #include "playfield.h"
-
+#include "player.h"
 
 class Game : public QGraphicsView
 {
@@ -17,18 +18,28 @@ class Game : public QGraphicsView
 public:
 
     Game();
+    ~Game();
     void draw();
     void keyPressEvent(QKeyEvent* event);
     void keyReleaseEvent(QKeyEvent *event);
+    void closeEvent(QCloseEvent *event)
+    {
+        qDebug()<<"ende";
+        timer->stop();
+
+        scene = NULL;
+        this->destroy(true);
+    }
 public slots:
     void gameloop();
 
 /*Variabeln*/
 private:
     QGraphicsScene * scene;
-    Playfield * playfield;
     QTimer * timer;
 
+    Playfield * playfield;
+    Player * player;
     char Key_Up, Key_Down, Key_Left, Key_Right;
 };
 

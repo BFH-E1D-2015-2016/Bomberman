@@ -3,13 +3,21 @@
 
 
 #include <QObject>
-#include <QGraphicsScene>
+#include <QGraphicsRectItem>
 #include <QDebug>
 
-class player
+#include "playfield.h"
+
+class Player :public QGraphicsRectItem
 {
+
 public:
-    player();
+    Player(Playfield * field);
+    void move(int X, int Y);
+
+private:
+    Playfield * playfield;
+    int x,y;
 };
 
 #endif // PLAYER_H
