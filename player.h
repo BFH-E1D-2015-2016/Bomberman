@@ -13,7 +13,9 @@ class Player :public QGraphicsRectItem
 
 public:
     Player(Playfield * field);
+    Player(Playfield *field, int X, int Y);
     void move(int X, int Y);
+
 
 private:
     Playfield * playfield;

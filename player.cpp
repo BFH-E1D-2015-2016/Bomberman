@@ -1,12 +1,24 @@
 #include "player.h"
 
+#define PLAYER_SIZE_X 16
+#define PLAYER_SIZE_Y 16
+#define PLAYER_MIDDLE_X(x) (x + (PLAYER_SIZE_X/2))
+#define PLAYER_MIDDLE_Y(x) (x + (PLAYER_SIZE_Y/2))
 
 Player::Player(Playfield *field)
 {
     playfield = field;
     x=0;
     y=0;
-   setRect(0,0,16,16);
+   setRect(0,0,PLAYER_SIZE_X,PLAYER_SIZE_Y);
+
+}
+Player::Player(Playfield *field, int X, int Y)
+{
+    playfield = field;
+    x=X;
+    y=Y;
+   setRect(x,y,PLAYER_SIZE_X,PLAYER_SIZE_Y);
 
 }
 void Player::move(int X, int Y)
@@ -14,32 +26,51 @@ void Player::move(int X, int Y)
 
    if((x+X)>=0 && (y+Y)>=0)
    {
-       x += X;
-       y += Y;
-
        if(playfield != NULL)
        {
-            playfield->current_hightlite(x+8,y+8);
+            //playfield->current_hightlite(PLAYER_MIDDLE_X(x), PLAYER_MIDDLE_Y(y));
 
-            Block * up = playfield->getBlock(x+8,y+8,UP);
-            if(up != NULL)
-             up->setBrush(QBrush(Qt::black));
+           //Nach unten verschieben
+           if(Y>0)
+           {
+                Block * nextblock1 =  playfield->getBlock(x+X,               (y+Y+PLAYER_SIZE_Y), CURRENT);
+                Block * nextblock2 =  playfield->getBlock(x+X+PLAYER_SIZE_X, (y+Y+PLAYER_SIZE_Y), CURRENT);
 
-            Block * down = playfield->getBlock(x+8,y+8,DOWN);
-            if(down != NULL)
-             down->setBrush(QBrush(Qt::darkMagenta));
+                if(nextblock1->get_Blockbehavoir() == MODE_PATH && nextblock2->get_Blockbehavoir() == MODE_PATH )
+                        y += Y;
 
-           Block *left = playfield->getBlock(x+8,y+8,LEFT);
-            if(left != NULL)
-             left->setBrush(QBrush(Qt::blue));
+           }
+           //Nach oben verschieben
+           if(Y<0)
+           {
+                Block * nextblock1 =  playfield->getBlock(x+X,               (y+Y), CURRENT);
+                Block * nextblock2 =  playfield->getBlock(x+X+PLAYER_SIZE_X, (y+Y), CURRENT);
 
-            Block * right = playfield->getBlock(x+8,y+8,RIGHT);
-            if(right != NULL)
-             right->setBrush(QBrush(Qt::yellow));
+                if(nextblock1->get_Blockbehavoir() == MODE_PATH && nextblock2->get_Blockbehavoir() == MODE_PATH )
+                        y += Y;
 
+            }
+           //Nach rechts verschieben
+           if(X>0)
+           {
+                Block * nextblock1 =  playfield->getBlock(x+X+PLAYER_SIZE_X, (y+Y              ), CURRENT);
+                Block * nextblock2 =  playfield->getBlock(x+X+PLAYER_SIZE_X, (y+Y+PLAYER_SIZE_Y), CURRENT);
+
+                if(nextblock1->get_Blockbehavoir() == MODE_PATH && nextblock2->get_Blockbehavoir() == MODE_PATH )
+                        x += X;
+
+           }
+           //Nach links verschieben
+           if(X<0)
+           {
+                Block * nextblock1 =  playfield->getBlock(x+X, (y+Y              ), CURRENT);
+                Block * nextblock2 =  playfield->getBlock(x+X, (y+Y+PLAYER_SIZE_Y), CURRENT);
+
+                if(nextblock1->get_Blockbehavoir() == MODE_PATH && nextblock2->get_Blockbehavoir() == MODE_PATH )
+                        x += X;
+
+           }
        }
-
-       setRect(x,y,16,16);
-   }
-   //qDebug()<<"Player"<<x<<y;
+       setRect(x,y,PLAYER_SIZE_X,PLAYER_SIZE_Y);
+  }
 }

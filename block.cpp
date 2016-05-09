@@ -10,6 +10,11 @@ Block::Block(int XPos, int YPos, s_blockbehavoir blockmode)
 }
 
 
+s_blockbehavoir Block::get_Blockbehavoir()
+{
+    return Block_Behavoir;
+}
+
 void Block::set_Position(int XPos, int YPos)
 {
        setRect(XPos,YPos,BLOCK_SIZE_X,BLOCK_SIZE_Y);

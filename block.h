@@ -24,6 +24,7 @@ public:
     void reset_Blockbehavoir();
     void current_hightlite(int PosX, int PosY);
 
+    s_blockbehavoir get_Blockbehavoir();
 private:
     s_blockbehavoir Block_Behavoir;
     s_blockbehavoir Block_Behavoir_init;

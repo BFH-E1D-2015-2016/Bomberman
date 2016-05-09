@@ -11,7 +11,7 @@ Game::Game()
 
     // Spielfelg generieren
     playfield = new Playfield();
-    player = new Player(playfield);
+    player = new Player(playfield,31,31);
 
 
     //Scene erstellen
@@ -32,7 +32,7 @@ Game::~Game()
 
 void Game::gameloop()
 {
-    int move=3, moveX=0,moveY=0;
+    int move=4, moveX=0,moveY=0;
 
     if(Key_Up)
         moveY -= move;
@@ -60,27 +60,39 @@ void Game::draw()
 
 void Game::keyPressEvent(QKeyEvent *event)
 {
+    int count = event->count();
+    int i =0;
 
-    if(event->key() == Qt::Key_Left)
-        Key_Left = 1;
-    if(event->key() == Qt::Key_Right)
-       Key_Right = 1;
-    if(event->key() == Qt::Key_Up)
-       Key_Up = 1;
-    if(event->key() == Qt::Key_Down)
-        Key_Down = 1;
+    for(i=0; i<count;i++)
+    {
+
+        if(event->key() == Qt::Key_Left)
+            Key_Left = 1;
+        if(event->key() == Qt::Key_Right)
+           Key_Right = 1;
+        if(event->key() == Qt::Key_Up)
+           Key_Up = 1;
+        if(event->key() == Qt::Key_Down)
+            Key_Down = 1;
+    }
 }
 
 void Game::keyReleaseEvent(QKeyEvent *event)
 {
+    int count = event->count();
+    int i =0;
 
-    if(event->key() == Qt::Key_Left)
-        Key_Left = 0;
-    if(event->key() == Qt::Key_Right)
-       Key_Right = 0;
-    if(event->key() == Qt::Key_Up)
-       Key_Up = 0;
-    if(event->key() == Qt::Key_Down)
-       Key_Down = 0;
+    for(i=0; i<count;i++)
+    {
+        if(event->key() == Qt::Key_Left)
+            Key_Left = 0;
+        if(event->key() == Qt::Key_Right)
+           Key_Right = 0;
+        if(event->key() == Qt::Key_Up)
+           Key_Up = 0;
+        if(event->key() == Qt::Key_Down)
+           Key_Down = 0;
+    }
+
 }
 
