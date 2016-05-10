@@ -2,17 +2,18 @@
 #define BOMB_H
 
 #include <QObject>
-#include <QGraphicsRectItem>
+#include <QGraphicsEllipseItem>
 #include <QDebug>
 
 #include "playfield.h"
 #include "game.h"
 #include "player.h"
 
-class Bomb
+class Bomb : public QGraphicsEllipseItem
 
 {
 public:
+
 
     Bomb(Playfield *Field, Player *Gameplayer);
     void setBomb();

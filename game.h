@@ -8,12 +8,15 @@
 #include <QTimer>
 #include <QDebug>
 
-#include "playfield.h"
 
+
+#include "playfield.h"
 #include "myrect.h"
 #include "bomb.h"
 #include "player.h"
 #include "block.h"
+
+
 
 class Game : public QGraphicsView
 {
@@ -43,6 +46,7 @@ private:
     QGraphicsScene * scene;
     QTimer * timer;
 
+    Bomb * bomb;
     Playfield * playfield;
     Player * player;
     char Key_Up, Key_Down, Key_Left, Key_Right;

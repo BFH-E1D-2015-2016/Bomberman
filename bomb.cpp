@@ -2,6 +2,8 @@
 #include "block.h"
 #include "playfield.h"
 
+#define Bomb_Size_X 16
+#define Bomb_Size_Y 16
 
 Bomb::Bomb(Playfield *Field, Player *Gameplayer)
 {
@@ -12,8 +14,11 @@ Bomb::Bomb(Playfield *Field, Player *Gameplayer)
 
 void Bomb::setBomb()
 {
+    setRect(0,0,Bomb_Size_X,Bomb_Size_Y);
+    setBrush(QBrush(Qt::yellow));
+
     Block*  current = player->getCurrentBlockPosition();
-    current->setBrush(QBrush(Qt::yellow));
+    //current->setBrush(QBrush(Qt::yellow));
 
 
 }

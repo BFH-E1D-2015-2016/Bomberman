@@ -13,8 +13,8 @@ Game::Game()
     playfield = new Playfield();
     player = new Player(playfield,31,31);
 
-    Bomb * bombe = new Bomb(playfield,player);
-    bombe->setBomb();
+    bomb = new Bomb(playfield,player);
+    bomb->setBomb();
 
     //Scene erstellen
 scene = new QGraphicsScene();
@@ -22,6 +22,7 @@ scene = new QGraphicsScene();
     //Spielfeld zeichen
     playfield->Draw(scene);
     scene->addItem(player);
+    scene->addItem(bomb);
 
     //Timer starten
     timer->start(33);
