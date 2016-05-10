@@ -6,6 +6,8 @@
 #include <QThread>
 #include "playfield.h"
 #include "game.h"
+#include "bomb.h"
+
 
 int main(int argc, char *argv[])
 {

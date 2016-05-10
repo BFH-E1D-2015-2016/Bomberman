@@ -1,9 +1,13 @@
 #include "bomb.h"
+#include "block.h"
+#include "playfield.h"
+
 
 Bomb::Bomb(Playfield *Field, Player *Gameplayer)
 {
     playfield = Field;
-    player = Gameplayer;
+    player =  Gameplayer;
+
 }
 
 void Bomb::setBomb()

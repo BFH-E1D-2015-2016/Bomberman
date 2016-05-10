@@ -9,9 +9,11 @@
 #include <QDebug>
 
 #include "playfield.h"
+
+#include "myrect.h"
+#include "bomb.h"
 #include "player.h"
 #include "block.h"
-#include "bomb.h"
 
 class Game : public QGraphicsView
 {

@@ -53,7 +53,7 @@ Playfield::Playfield()
 
 void Playfield::Draw(QGraphicsScene * scene)
 {
-    int counter_y =0;
+    int counter_y = 0;
     int counter_x = 0;
 
     for(counter_y = 0; counter_y<PLAYFIELD_SIZE_Y; counter_y++)
