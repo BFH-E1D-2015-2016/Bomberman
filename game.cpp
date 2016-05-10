@@ -17,7 +17,7 @@ Game::Game()
     bomb->setBomb();
 
     //Scene erstellen
-scene = new QGraphicsScene();
+    scene = new QGraphicsScene();
 
     //Spielfeld zeichen
     playfield->Draw(scene);

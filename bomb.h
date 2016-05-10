@@ -13,19 +13,12 @@ class Bomb : public QGraphicsEllipseItem
 
 {
 public:
-
-
     Bomb(Playfield *Field, Player *Gameplayer);
     void setBomb();
-
-public:
-    void SetBomb ();
 
 private:
     Playfield * playfield;
     Player  * player;
-
-
 };
 
 

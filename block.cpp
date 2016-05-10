@@ -16,10 +16,14 @@ void Block::set_Position(int XPos, int YPos)
 
 int Block::istWalkable()
 {
-    if(Block_Behavoir == MODE_PATH || Block_Behavoir == MODE_DEBUG)
-        return 1;
 
-    return 0;
+    switch(Block_Behavoir)
+    {
+        case (MODE_SOLID):          return 0;
+        case (MODE_PATH):           return 1;
+        case (MODE_DESTROYABLE):    return 0;
+        case(MODE_DEBUG):           return 1;
+    }
 }
 
 void Block::reset_Blockbehavoir()
