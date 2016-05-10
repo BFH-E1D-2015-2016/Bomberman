@@ -1,9 +1,5 @@
 #include "player.h"
 
-#define PLAYER_SIZE_X 16
-#define PLAYER_SIZE_Y 16
-#define PLAYER_MIDDLE_X(x) (x + (PLAYER_SIZE_X/2))
-#define PLAYER_MIDDLE_Y(x) (x + (PLAYER_SIZE_Y/2))
 
 Player::Player(Playfield *field)
 {

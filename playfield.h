@@ -1,13 +1,13 @@
 #ifndef PLAYFIELD_H
 #define PLAYFIELD_H
 
-#define PLAYFIELD_SIZE_X     19
-#define PLAYFIELD_SIZE_Y     15
-
 #include <QObject>
 #include <QGraphicsScene>
 #include <QDebug>
 #include "block.h"
+
+#define PLAYFIELD_SIZE_X     19
+#define PLAYFIELD_SIZE_Y     15
 
 enum Nextblock
 {
@@ -30,5 +30,8 @@ public:
 private:
     s_blockbehavoir Block_Behavoir;
     s_blockbehavoir Block_Behavoir_init;
+
+    Block * playfieldBlocks [PLAYFIELD_SIZE_Y][PLAYFIELD_SIZE_X];
+    Block  *  hightlite_block;
 };
 #endif // PLAYFIELD_H

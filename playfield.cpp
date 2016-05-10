@@ -1,10 +1,6 @@
 #include "playfield.h"
 
 
-Block * playfieldBlocks [PLAYFIELD_SIZE_Y][PLAYFIELD_SIZE_X];
-Block  *  hightlite_block;
-
-
 char playfieldDesign[PLAYFIELD_SIZE_Y][PLAYFIELD_SIZE_X] =
 {
 {'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#'},

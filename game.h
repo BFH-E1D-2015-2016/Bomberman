@@ -1,6 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 
+
 #include <QCloseEvent>
 #include <QKeyEvent>
 #include <QGraphicsView>
@@ -9,6 +10,7 @@
 
 #include "playfield.h"
 #include "player.h"
+#include "block.h"
 
 class Game : public QGraphicsView
 {
