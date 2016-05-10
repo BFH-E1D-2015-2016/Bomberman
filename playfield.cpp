@@ -65,7 +65,7 @@ void Playfield::Draw(QGraphicsScene * scene)
         }
     }
 }
-Block *  Playfield::getBlock(int PosX, int PosY, Nextblock dir)
+Block *  Playfield::getBlock(int PosX, int PosY, Nextblock dir = CURRENT)
 {
     int x = PosX / BLOCK_SIZE_X;
     int y = PosY / BLOCK_SIZE_Y;
@@ -87,7 +87,7 @@ void Playfield::current_hightlite(int PosX, int PosY)
       int x = PosX / BLOCK_SIZE_X;
       int y = PosY / BLOCK_SIZE_Y;
 
-      qDebug()<< x<<y << PosX<<PosY;
+     // qDebug()<< x<<y << PosX<<PosY;
 
       if(hightlite_block != NULL)
       {

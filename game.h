@@ -11,6 +11,7 @@
 #include "playfield.h"
 #include "player.h"
 #include "block.h"
+#include "bomb.h"
 
 class Game : public QGraphicsView
 {

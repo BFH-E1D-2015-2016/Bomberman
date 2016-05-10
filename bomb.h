@@ -2,11 +2,17 @@
 #define BOMB_H
 
 #include <QObject>
+#include "game.h"
 
 class Bomb
 {
 public:
-    Bomb();
+    Bomb(Playfield *Field, Player *Gameplayer);
+    void setBomb();
+
+public:
+    Playfield * playfield;
+    Player  * player;
 };
 
 #endif // BOMB_H

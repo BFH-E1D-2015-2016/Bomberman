@@ -21,8 +21,8 @@ public:
     Player(Playfield * field);
     Player(Playfield *field, int X, int Y);
     void move(int X, int Y);
-
-
+    //void move(int Key_Up, int Key_Down, int Key_Left, int Key_Right);
+    Block *getCurrentBlockPosition();
 private:
     Playfield * playfield;
     int x,y;

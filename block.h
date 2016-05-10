@@ -12,7 +12,6 @@ enum s_blockbehavoir{
     MODE_SOLID = 0,
     MODE_DESTROYABLE,
     MODE_PATH,
-    MODE_ENDOFPLAYFIELD,
     MODE_DEBUG
 };
 class Block :  public QGraphicsRectItem
@@ -20,10 +19,12 @@ class Block :  public QGraphicsRectItem
 public:
     Block(int XPos, int YPos, s_blockbehavoir blockmode);
     void set_Position(int XPos, int YPos);
-    void set_Blockbehavoir( s_blockbehavoir blockmode);
-    void reset_Blockbehavoir();
+
     void current_hightlite(int PosX, int PosY);
 
+    int istWalkable();
+    void set_Blockbehavoir( s_blockbehavoir blockmode);
+    void reset_Blockbehavoir();
     s_blockbehavoir get_Blockbehavoir();
 private:
     s_blockbehavoir Block_Behavoir;

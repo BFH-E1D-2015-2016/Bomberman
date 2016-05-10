@@ -13,6 +13,8 @@ Game::Game()
     playfield = new Playfield();
     player = new Player(playfield,31,31);
 
+    Bomb * bombe = new Bomb(playfield,player);
+    bombe->setBomb();
 
     //Scene erstellen
 scene = new QGraphicsScene();
@@ -32,19 +34,8 @@ Game::~Game()
 
 void Game::gameloop()
 {
-    int move=4, moveX=0,moveY=0;
 
-    if(Key_Up)
-        moveY -= move;
-    if(Key_Down)
-        moveY += move;
-
-    if(Key_Left)
-        moveX -= move;
-    if(!Key_Left && Key_Right)
-       moveX += move;
-    if(moveX || moveY)
-        player->move(moveX, moveY);
+    //player->move(moveX, moveY);
     draw();
 }
 
