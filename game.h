@@ -10,6 +10,7 @@
 #include <QDebug>
 #include "playfield.h"
 #include "myrect.h"
+#include "bomb.h"
 
 class Game : public QObject
 {

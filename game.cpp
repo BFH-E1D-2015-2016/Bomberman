@@ -15,12 +15,17 @@ Game::Game()
 
     //Timer starten
     timer->start(1000);
+
+
 }
 
 void Game::gameloop()
 {
 
     draw();
+
+    Bomb *bomb = new Bomb(playfield);
+    bomb->SetBomb();
 }
 
 void Game::draw()
