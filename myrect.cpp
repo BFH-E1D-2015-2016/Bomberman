@@ -5,7 +5,7 @@
 
 void myrect::keyPressEvent(QKeyEvent *event)
 {
-   // qDebug() << "test";
+    qDebug() << "KeyMyrect";
     if(event->key() == Qt::Key_Left)
         setPos(x()-10,y());
     if(event->key() == Qt::Key_Right)
