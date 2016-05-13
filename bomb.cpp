@@ -1,6 +1,4 @@
 #include "bomb.h"
-#include "block.h"
-#include "playfield.h"
 
 #define Bomb_Size_X 16
 #define Bomb_Size_Y 16

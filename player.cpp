@@ -17,26 +17,26 @@ Player::Player(Playfield *field, int X, int Y)
    setRect(x,y,PLAYER_SIZE_X,PLAYER_SIZE_Y);
 
 }
-/*
+
 void Player::move(int Key_Up, int Key_Down, int Key_Left, int Key_Right)
 {
-    int move=4, moveX=0, moveY=0;
+    int step=4, moveX=0, moveY=0;
 
     if(Key_Up)
-        moveY -= move;
+        moveY -= step;
     if(Key_Down)
-        moveY += move;
+        moveY += step;
 
     if(Key_Left)
-       moveX -= move;
+       moveX -= step;
 
     if(Key_Right)
-       moveX += move;
+       moveX += step;
 
-    //move(moveX, moveY);
+    move(moveX, moveY);
 
 }
-*/
+
 Block* Player::getCurrentBlockPosition()
 {
     Block * current = playfield->getBlock(PLAYER_MIDDLE_X(x), PLAYER_MIDDLE_Y(y), CURRENT);

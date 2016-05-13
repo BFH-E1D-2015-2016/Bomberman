@@ -36,7 +36,7 @@ Game::~Game()
 void Game::gameloop()
 {
 
-    //player->move(moveX, moveY);
+    player->move(Key_Up,Key_Down,Key_Left,Key_Right);
     draw();
 }
 

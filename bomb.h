@@ -5,9 +5,9 @@
 #include <QGraphicsEllipseItem>
 #include <QDebug>
 
-#include "playfield.h"
-#include "game.h"
 #include "player.h"
+#include "block.h"
+#include "playfield.h"
 
 class Bomb : public QGraphicsEllipseItem
 
