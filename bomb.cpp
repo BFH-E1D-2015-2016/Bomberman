@@ -36,7 +36,7 @@ void Bomb::tick()
          for(int i=0; i<bombs.size() ; i++)
         {
            Bomb * bomb = bombs.at(i);
-           qDebug()<<i<<bomb->count;
+           //qDebug()<<i<<bomb->count;
            bomb->ticks++;
         }
     }

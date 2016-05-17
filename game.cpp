@@ -37,7 +37,7 @@ void Game::gameloop()
 
     if (Key_Space){
         Bomb * bomb = new Bomb(playfield,player);
-
+        Bomb::draw(scene);
     }
 
 
