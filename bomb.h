@@ -20,7 +20,7 @@ public:
     static void draw(QGraphicsScene *scene);
 
 public:
-    int count;
+    int ticks;
 
 
 
