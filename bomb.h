@@ -16,9 +16,19 @@ public:
     Bomb(Playfield *Field, Player *Gameplayer);
     void setBomb();
 
+    static void tick();
+    static void draw(QGraphicsScene *scene);
+
+public:
+    int ticks;
+
+
+
 private:
     Playfield * playfield;
     Player  * player;
+
+
 };
 
 

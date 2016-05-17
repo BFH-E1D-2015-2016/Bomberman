@@ -1,4 +1,4 @@
-#include "game.h"
+﻿#include "game.h"
 
 Game::Game()
 {
@@ -13,17 +13,15 @@ Game::Game()
     playfield = new Playfield();
     player = new Player(playfield,31,31);
 
-    //Bombe einfügen
-    //Bomb * bomb = new Bomb(playfield,player);
-    //bomb->setBomb(Key_Space);
+
 
     //Scene erstellen
     scene = new QGraphicsScene();
 
     //Spielfeld zeichen
     playfield->Draw(scene);
+    Bomb::draw(scene);
     scene->addItem(player);
-    //scene->addItem(bomb);
 
     //Timer starten
     timer->start(33);
@@ -36,13 +34,17 @@ Game::~Game()
 
 void Game::gameloop()
 {
+
     if (Key_Space){
         Bomb * bomb = new Bomb(playfield,player);
 
     }
 
 
+
+    Bomb::tick();
     player->move(Key_Up,Key_Down,Key_Left,Key_Right);
+
     draw();
 
 
