@@ -37,6 +37,18 @@ void Player::move(int Key_Up, int Key_Down, int Key_Left, int Key_Right)
 
 }
 
+int Player::Get_PlayerPos_X()
+{
+    return x;
+}
+
+int Player::Get_PlayerPos_Y()
+{
+    return y;
+}
+
+
+
 Block* Player::getCurrentBlockPosition()
 {
     Block * current = playfield->getBlock(PLAYER_MIDDLE_X(x), PLAYER_MIDDLE_Y(y), CURRENT);

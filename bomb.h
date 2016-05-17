@@ -24,4 +24,4 @@ private:
 
 
 
-#endif // BOMB_H
+#endif  //BOMB_H

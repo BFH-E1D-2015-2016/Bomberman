@@ -7,15 +7,18 @@ Bomb::Bomb(Playfield *Field, Player *Gameplayer)
 {
     playfield = Field;
     player =  Gameplayer;
+    setBomb();
 
 }
 
 void Bomb::setBomb()
 {
-    setRect(0,0,Bomb_Size_X,Bomb_Size_Y);
+
+
+    setRect(player->Get_PlayerPos_X(),player->Get_PlayerPos_Y(),Bomb_Size_X,Bomb_Size_Y);
     setBrush(QBrush(Qt::yellow));
 
-    Block*  current = player->getCurrentBlockPosition();
+    //Block*  current = player->getCurrentBlockPosition();
     //current->setBrush(QBrush(Qt::yellow));
 
 

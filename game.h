@@ -39,15 +39,17 @@ public:
 public slots:
     void gameloop();
 
+
 /*Variabeln*/
 private:
     QGraphicsScene * scene;
     QTimer * timer;
 
-     Bomb * bomb;
+    Bomb * bomb;
     Playfield * playfield;
     Player * player;
-    char Key_Up, Key_Down, Key_Left, Key_Right;
+    char Key_Up, Key_Down, Key_Left, Key_Right,Key_Space;
+
 };
 
 #endif // GAME_H

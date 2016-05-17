@@ -5,7 +5,6 @@
 #include <QObject>
 #include <QGraphicsRectItem>
 #include <QDebug>
-
 #include "playfield.h"
 
 
@@ -22,12 +21,16 @@ public:
     Player(Playfield *field, int X, int Y);
     void move(int X, int Y);
     void move(int Key_Up, int Key_Down, int Key_Left, int Key_Right);
-
+    int Get_PlayerPos_X();
+    int Get_PlayerPos_Y();
     Block *getCurrentBlockPosition();
+
 
 private:
     Playfield * playfield;
     int x,y;
+
 };
 
 #endif // PLAYER_H
+

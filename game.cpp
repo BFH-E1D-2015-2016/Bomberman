@@ -2,7 +2,7 @@
 
 Game::Game()
 {
-    Key_Down = Key_Left = Key_Right = Key_Up =0;
+    Key_Down = Key_Left = Key_Right = Key_Up = Key_Space = 0;
 
     //Spieltimer initsialisieren
     timer = new QTimer(this);
@@ -13,8 +13,9 @@ Game::Game()
     playfield = new Playfield();
     player = new Player(playfield,31,31);
 
-    Bomb * bomb = new Bomb(playfield,player);
-    bomb->setBomb();
+    //Bombe einfügen
+    //Bomb * bomb = new Bomb(playfield,player);
+    //bomb->setBomb(Key_Space);
 
     //Scene erstellen
     scene = new QGraphicsScene();
@@ -22,7 +23,7 @@ Game::Game()
     //Spielfeld zeichen
     playfield->Draw(scene);
     scene->addItem(player);
-    scene->addItem(bomb);
+    //scene->addItem(bomb);
 
     //Timer starten
     timer->start(33);
@@ -35,9 +36,16 @@ Game::~Game()
 
 void Game::gameloop()
 {
+    if (Key_Space){
+        Bomb * bomb = new Bomb(playfield,player);
+
+    }
+
 
     player->move(Key_Up,Key_Down,Key_Left,Key_Right);
     draw();
+
+
 }
 
 void Game::draw()
@@ -66,6 +74,8 @@ void Game::keyPressEvent(QKeyEvent *event)
            Key_Up = 1;
         if(event->key() == Qt::Key_Down)
             Key_Down = 1;
+        if(event->key() == Qt::Key_Space)
+            Key_Space =1;
     }
 }
 
@@ -84,6 +94,8 @@ void Game::keyReleaseEvent(QKeyEvent *event)
            Key_Up = 0;
         if(event->key() == Qt::Key_Down)
            Key_Down = 0;
+        if(event->key() == Qt::Key_Space)
+            Key_Space =0;
     }
 
 }
