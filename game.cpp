@@ -13,16 +13,13 @@ Game::Game()
     playfield = new Playfield();
     player = new Player(playfield,31,31);
 
-    bomb = new Bomb(playfield,player);
-    bomb->setBomb();
-
     //Scene erstellen
     scene = new QGraphicsScene();
 
     //Spielfeld zeichen
     playfield->Draw(scene);
+    Bomb::draw(scene);
     scene->addItem(player);
-    scene->addItem(bomb);
 
     //Timer starten
     timer->start(33);
@@ -35,8 +32,9 @@ Game::~Game()
 
 void Game::gameloop()
 {
-
+    Bomb::tick();
     player->move(Key_Up,Key_Down,Key_Left,Key_Right);
+
     draw();
 }
 
