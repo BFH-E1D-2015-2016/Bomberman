@@ -13,7 +13,7 @@ Game::Game()
     playfield = new Playfield();
     player = new Player(playfield,31,31);
 
-    bomb = new Bomb(playfield,player);
+    Bomb * bomb = new Bomb(playfield,player);
     bomb->setBomb();
 
     //Scene erstellen
