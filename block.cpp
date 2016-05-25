@@ -1,7 +1,7 @@
 #include "block.h"
 
 
-
+Block::Block(){}
 Block::Block(int XPos, int YPos, s_blockbehavoir blockmode)
 {
     Block_Behavoir_init = blockmode;
@@ -12,6 +12,25 @@ Block::Block(int XPos, int YPos, s_blockbehavoir blockmode)
 void Block::set_Position(int XPos, int YPos)
 {
     setRect(XPos,YPos,BLOCK_SIZE_X,BLOCK_SIZE_Y);
+}
+int Block::exploding()
+{
+    switch(Block_Behavoir)
+    {
+        case (MODE_SOLID):              //nichts passiert
+        case (MODE_DEBUG):
+            return 0;
+
+        case (MODE_DESTROYABLE):        //Rot färben und den Block in einen Pfad verwandeln
+            set_Blockbehavoir(MODE_PATH);
+            Block_Behavoir_init= MODE_PATH;
+            setBrush(QBrush(Qt::red));
+            return 0;
+
+        case (MODE_PATH):               //Rot färben
+            setBrush(QBrush(Qt::red));
+            return 1;
+    }
 }
 
 int Block::istWalkable()

@@ -5,13 +5,13 @@ char playfieldDesign[PLAYFIELD_SIZE_Y][PLAYFIELD_SIZE_X] =
 {
 {'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#'},
 {'#',' ',' ',' ',' ',' ','x','x','x','x','x','x','x','x','x','x','x','x','#'},
-{'#',' ',' ',' ','#',' ','#','x','#','x','#','x','#','x','#','x','#','x','#'},
+{'#',' ',' ',' ',' ',' ','#','x','#','x','#','x','#','x','#','x','#','x','#'},
 {'#',' ',' ',' ',' ',' ','x','x','x','x','x','x','x','x','x','x','x','x','#'},
-{'#',' ',' ',' ','#',' ','#','x','#','x','#','x','#','x','#','x','#','x','#'},
+{'#',' ',' ',' ',' ',' ','#','x','#','x','#','x','#','x','#','x','#','x','#'},
 {'#',' ',' ',' ',' ',' ','x','x','x','x','x','x','x','x','x','x','x','x','#'},
-{'#',' ',' ',' ','#',' ','#','x','#','x','#','x','#','x','#','x','#','x','#'},
-{'#',' ',' ',' ',' ',' ','x','x','x','x','x','x','x','x','x','x','x','x','#'},
-{'#',' ','#',' ','#',' ','#','x','#','x','#','x','#','x','#','x','#','x','#'},
+{'#',' ',' ',' ',' ',' ','#','x','#','x','#','x','#','x','#','x','#','x','#'},
+{'#',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','x','x','x','x','x','#'},
+{'#',' ',' ',' ',' ',' ','#','x','#','x','#','x','#','x','#','x','#','x','#'},
 {'#',' ',' ',' ',' ',' ','x','x','x','x','x','x','x','x','x','x','x','x','#'},
 {'#',' ','#',' ','#',' ','#','x','#','x','#','x','#','x','#','x','#','x','#'},
 {'#',' ',' ',' ',' ',' ','x','x','x','x','x','x','x','x','x','x','x','x','#'},
@@ -19,6 +19,7 @@ char playfieldDesign[PLAYFIELD_SIZE_Y][PLAYFIELD_SIZE_X] =
 {'#',' ',' ',' ',' ',' ','x','x','x','x','x','x','x','x','x','x','x','x','#'},
 {'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#'}
 };
+
 Playfield::Playfield()
 {
     int startpos_x = 0;
@@ -65,11 +66,13 @@ void Playfield::Draw(QGraphicsScene * scene)
         }
     }
 }
-Block *  Playfield::getBlock(int PosX, int PosY, Nextblock dir = CURRENT)
+Block *  Playfield::getBlock(int PosX, int PosY, Nextblock dir)
 {
+
     int x = PosX / BLOCK_SIZE_X;
     int y = PosY / BLOCK_SIZE_Y;
 
+    if(x>=0 && x)
     if(dir == UP)   y -= 1;
     if(dir == DOWN) y += 1;
     if(dir == RIGHT)x += 1;
@@ -78,7 +81,7 @@ Block *  Playfield::getBlock(int PosX, int PosY, Nextblock dir = CURRENT)
     if(x<0 || y<0)  return NULL;
     if(x>=PLAYFIELD_SIZE_X || y>=PLAYFIELD_SIZE_Y)  return NULL;
 
-    return playfieldBlocks[y][x];
+      return playfieldBlocks[y][x];
 
 }
 

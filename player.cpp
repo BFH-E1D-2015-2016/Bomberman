@@ -3,14 +3,17 @@
 
 Player::Player(Playfield *field)
 {
+    setBrush(QBrush(Qt::blue));
     playfield = field;
     x=0;
     y=0;
    setRect(0,0,PLAYER_SIZE_X,PLAYER_SIZE_Y);
 
+
 }
 Player::Player(Playfield *field, int X, int Y)
 {
+    setBrush(QBrush(Qt::blue));
     playfield = field;
     x=X;
     y=Y;
@@ -45,6 +48,16 @@ int Player::Get_PlayerPos_X()
 int Player::Get_PlayerPos_Y()
 {
     return y;
+}
+
+int Player::Get_MaxBombCount()
+{
+    return bomb_max_count;
+}
+
+int Player::Get_Bombintensity()
+{
+    return bomb_intensity;
 }
 
 

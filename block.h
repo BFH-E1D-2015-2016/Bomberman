@@ -8,6 +8,9 @@
 #define BLOCK_SIZE_X    25
 #define BLOCK_SIZE_Y    25
 
+#define BLOCK_MIDDLE_X(x) (x + (BLOCK_SIZE_X/2))
+#define BLOCK_MIDDLE_Y(x) (x + (BLOCK_SIZE_Y/2))
+
 enum s_blockbehavoir{
     MODE_SOLID = 0,
     MODE_DESTROYABLE,
@@ -17,6 +20,7 @@ enum s_blockbehavoir{
 class Block :  public QGraphicsRectItem
 {
 public:
+    Block();
     Block(int XPos, int YPos, s_blockbehavoir blockmode);
     void set_Position(int XPos, int YPos);
 
@@ -26,6 +30,8 @@ public:
     void set_Blockbehavoir( s_blockbehavoir blockmode);
     void reset_Blockbehavoir();
     s_blockbehavoir get_Blockbehavoir();
+    int exploding();
+
 private:
     s_blockbehavoir Block_Behavoir;
     s_blockbehavoir Block_Behavoir_init;

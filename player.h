@@ -23,12 +23,15 @@ public:
     void move(int Key_Up, int Key_Down, int Key_Left, int Key_Right);
     int Get_PlayerPos_X();
     int Get_PlayerPos_Y();
+    int Get_MaxBombCount();
+    int Get_Bombintensity();
     Block *getCurrentBlockPosition();
 
 
 private:
     Playfield * playfield;
     int x,y;
+    int bomb_max_count=88, bomb_intensity=5;
 
 };
 

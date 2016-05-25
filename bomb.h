@@ -9,24 +9,35 @@
 #include "block.h"
 #include "playfield.h"
 
-class Bomb : public QGraphicsEllipseItem
 
+#define TIME_FUSE                   20
+#define TIME_EXPANDING_EXPLOSION    10
+
+
+class Bomb : public QGraphicsEllipseItem
 {
+
 public:
-    Bomb(Playfield *Field, Player *Gameplayer);
+    Bomb(Playfield *Field, Player *Gameplayer, QGraphicsScene *Scene );
     void setBomb();
+    void burningFuse();
 
     static void tick();
-    static void draw(QGraphicsScene *scene);
+    void draw();
+    static int getBombCount(Player *player);
+    void removeBomb(int id);
 
-public:
-    int ticks;
+    int id;
 
-
+    int ticks=0;
+    int current_explosionsradius=0;
+    int wall_up=1,wall_down=1, wall_left=1, wall_right=1;
 
 private:
     Playfield * playfield;
     Player  * player;
+    QGraphicsScene * scene;
+
 
 
 };

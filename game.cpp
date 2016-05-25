@@ -1,5 +1,6 @@
 ﻿#include "game.h"
 
+
 Game::Game()
 {
     Key_Down = Key_Left = Key_Right = Key_Up = Key_Space = 0;
@@ -8,23 +9,19 @@ Game::Game()
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()),this,SLOT(gameloop()));
 
-
     // Spielfelg generieren
     playfield = new Playfield();
     player = new Player(playfield,31,31);
-
-
 
     //Scene erstellen
     scene = new QGraphicsScene();
 
     //Spielfeld zeichen
     playfield->Draw(scene);
-    Bomb::draw(scene);
     scene->addItem(player);
 
     //Timer starten
-    timer->start(33);
+    timer->start(GAME_UPDATEINTERVALL);
 }
 
 Game::~Game()
@@ -35,19 +32,21 @@ Game::~Game()
 void Game::gameloop()
 {
 
-    if (Key_Space){
-        Bomb * bomb = new Bomb(playfield,player);
-        Bomb::draw(scene);
+    if (Key_Space)
+    {
+        Key_Space = 0;
+
+        if(Bomb::getBombCount(player)<player->Get_MaxBombCount())
+        {
+            Bomb * bomb = new Bomb(playfield,player,scene);
+            bomb->draw();
+        }
     }
-
-
 
     Bomb::tick();
     player->move(Key_Up,Key_Down,Key_Left,Key_Right);
 
     draw();
-
-
 }
 
 void Game::draw()
@@ -77,7 +76,10 @@ void Game::keyPressEvent(QKeyEvent *event)
         if(event->key() == Qt::Key_Down)
             Key_Down = 1;
         if(event->key() == Qt::Key_Space)
-            Key_Space =1;
+        {
+              if(event->isAutoRepeat()==false)
+                Key_Space =1;
+        }
     }
 }
 

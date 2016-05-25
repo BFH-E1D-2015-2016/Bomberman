@@ -14,7 +14,7 @@
 #include "player.h"
 #include "block.h"
 
-
+#define GAME_UPDATEINTERVALL 33
 
 class Game : public QGraphicsView
 {
@@ -41,6 +41,8 @@ public slots:
 
 
 /*Variabeln*/
+public:
+    static const unsigned int Update_Intervall = GAME_UPDATEINTERVALL;
 private:
     QGraphicsScene * scene;
     QTimer * timer;
@@ -49,6 +51,7 @@ private:
     Playfield * playfield;
     Player * player;
     char Key_Up, Key_Down, Key_Left, Key_Right,Key_Space;
+
 
 };
 
