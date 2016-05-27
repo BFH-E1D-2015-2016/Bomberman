@@ -7,17 +7,60 @@ Player::Player(Playfield *field)
     playfield = field;
     x=0;
     y=0;
-   setRect(0,0,PLAYER_SIZE_X,PLAYER_SIZE_Y);
+    setRect(0,0,PLAYER_SIZE_X,PLAYER_SIZE_Y);
 
 
 }
-Player::Player(Playfield *field, int X, int Y)
+Player::Player(Playfield *field, int X, int Y, QBrush brush)
 {
-    setBrush(QBrush(Qt::blue));
-    playfield = field;
-    x=X;
-    y=Y;
+
+   playfield = field;
+   x=X;
+   y=Y;
+   playerColor = brush;
+
+   setColor(playerColor);
    setRect(x,y,PLAYER_SIZE_X,PLAYER_SIZE_Y);
+
+}
+void Player::gameLogic(int tick)
+{
+    move(Key_Up, Key_Down, Key_Left, Key_Right); //Spieler bewegen
+
+    if(checkExpolsion()) // Spieler in Explosion?
+    {
+        if(move_interdiction==0 && lives>0) //Leben verringern
+            lives--;
+
+        move_interdiction = true; //er kann sich nicht bewegen,solange er in der Explosion ist
+    }
+    else
+    {
+         move_interdiction = false;
+         setColor(playerColor);
+    }
+
+    if(lives==0)
+        move_interdiction = true;
+
+    //Blinkenlassen wenn im Explosionsradius
+    //Schwarzfärben wenn tot
+    //sonst normale Spielerfarbe
+    if(move_interdiction && (tick/2)%2)
+    {
+        setColor(Qt::black);
+    }
+    else
+    {
+        if(move_interdiction && lives>0) setColor(Qt::gray);
+        else
+            if(lives>0)
+                setColor(playerColor);
+            else
+                setColor(Qt::black);
+    }
+
+
 
 }
 
@@ -60,6 +103,11 @@ int Player::Get_Bombintensity()
     return bomb_intensity;
 }
 
+int Player::Get_Lives()
+{
+    return lives;
+}
+
 
 
 Block* Player::getCurrentBlockPosition()
@@ -68,11 +116,26 @@ Block* Player::getCurrentBlockPosition()
     return  current;
 }
 
+int Player::checkExpolsion()
+{
+    Block * block = getCurrentBlockPosition();
+
+    if(block == NULL || block->get_Blockbehavoir() == MODE_EXPLOSION)
+    {
+        return 1;
+    }
+    return 0;
+
+}
+void Player::setColor(QBrush brush)
+{
+     setBrush(brush);
+}
 
 void Player::move(int X, int Y)
 {
 
-   if((x+X)>=0 && (y+Y)>=0) // Spielfeldbegrenzung keine neg.Position
+   if((x+X)>=0 && (y+Y)>=0 && move_interdiction==0) // Spielfeldbegrenzung keine neg.Position
    {
        if(playfield != NULL)
        {

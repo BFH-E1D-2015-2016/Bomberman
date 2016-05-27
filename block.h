@@ -15,7 +15,8 @@ enum s_blockbehavoir{
     MODE_SOLID = 0,
     MODE_DESTROYABLE,
     MODE_PATH,
-    MODE_DEBUG
+    MODE_DEBUG,
+    MODE_EXPLOSION
 };
 class Block :  public QGraphicsRectItem
 {

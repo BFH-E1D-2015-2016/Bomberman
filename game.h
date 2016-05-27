@@ -43,15 +43,16 @@ public slots:
 /*Variabeln*/
 public:
     static const unsigned int Update_Intervall = GAME_UPDATEINTERVALL;
+    void init();
 private:
     QGraphicsScene * scene;
     QTimer * timer;
 
     Bomb * bomb;
     Playfield * playfield;
-    Player * player;
-    char Key_Up, Key_Down, Key_Left, Key_Right,Key_Space;
+    Player * player1, *player2;
 
+    unsigned int gametick;
 
 };
 

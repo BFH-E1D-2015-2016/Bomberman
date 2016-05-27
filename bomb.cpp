@@ -55,7 +55,7 @@ void Bomb::burningFuse()
     }
     else
     {
-       if(current_explosionsradius < player->Get_Bombintensity())
+       if(current_explosionsradius <= player->Get_Bombintensity())
        {
            if(ticks>TIME_EXPANDING_EXPLOSION)
            {
@@ -65,38 +65,46 @@ void Bomb::burningFuse()
                     playfield->getBlock(BOMB_MIDDLE_X(rect().x()), BOMB_MIDDLE_Y(rect().y()),CURRENT)->exploding();
                     setBrush(QBrush(Qt::transparent));
                     setPen(QPen(Qt::transparent));
+
+                    current_explosionsradius++;
               }
               else
               {
-                  for(int i=1; i<current_explosionsradius; i++)
+                  if(!wall_down && !wall_left && !wall_up && !wall_right)
+                      current_explosionsradius = player->Get_Bombintensity();
+                  else
                   {
-                      if(wall_down) wall_down  = playfield->getBlock(BOMB_MIDDLE_X(rect().x()               ), BOMB_MIDDLE_Y(rect().y()+i*BLOCK_SIZE_Y),CURRENT)->exploding();
-                      if(wall_left) wall_left  = playfield->getBlock(BOMB_MIDDLE_X(rect().x()+i*BLOCK_SIZE_X), BOMB_MIDDLE_Y(rect().y()               ),CURRENT)->exploding();
-                      if(wall_up)   wall_up    = playfield->getBlock(BOMB_MIDDLE_X(rect().x()               ), BOMB_MIDDLE_Y(rect().y()-i*BLOCK_SIZE_Y),CURRENT)->exploding();
-                      if(wall_right)wall_right = playfield->getBlock(BOMB_MIDDLE_X(rect().x()-i*BLOCK_SIZE_X), BOMB_MIDDLE_Y(rect().y()               ),CURRENT)->exploding();
+                      for(int i=1; i<current_explosionsradius; i++)
+                      {
+                          if(wall_down) wall_down  = playfield->getBlock(BOMB_MIDDLE_X(rect().x()               ), BOMB_MIDDLE_Y(rect().y()+i*BLOCK_SIZE_Y),CURRENT)->exploding();
+                          if(wall_left) wall_left  = playfield->getBlock(BOMB_MIDDLE_X(rect().x()+i*BLOCK_SIZE_X), BOMB_MIDDLE_Y(rect().y()               ),CURRENT)->exploding();
+                          if(wall_up)   wall_up    = playfield->getBlock(BOMB_MIDDLE_X(rect().x()               ), BOMB_MIDDLE_Y(rect().y()-i*BLOCK_SIZE_Y),CURRENT)->exploding();
+                          if(wall_right)wall_right = playfield->getBlock(BOMB_MIDDLE_X(rect().x()-i*BLOCK_SIZE_X), BOMB_MIDDLE_Y(rect().y()               ),CURRENT)->exploding();
+                      }
+                      current_explosionsradius++;
                   }
               }
-
-
               ticks=0;
-              current_explosionsradius++;
            }
        }
        else
       {
-           for(int i=current_explosionsradius; i>=0 ;i--)
-            {
-               Block * block;
-               block = playfield->getBlock(BOMB_MIDDLE_X(rect().x()               ), BOMB_MIDDLE_Y(rect().y()+i*BLOCK_SIZE_Y),CURRENT);
-               if(block != NULL) block->reset_Blockbehavoir();
-               block = playfield->getBlock(BOMB_MIDDLE_X(rect().x()+i*BLOCK_SIZE_X), BOMB_MIDDLE_Y(rect().y()               ),CURRENT);
-               if(block != NULL) block->reset_Blockbehavoir();
-               block = playfield->getBlock(BOMB_MIDDLE_X(rect().x()               ), BOMB_MIDDLE_Y(rect().y()-i*BLOCK_SIZE_Y),CURRENT);
-               if(block != NULL) block->reset_Blockbehavoir();
-               block = playfield->getBlock(BOMB_MIDDLE_X(rect().x()-i*BLOCK_SIZE_X), BOMB_MIDDLE_Y(rect().y()               ),CURRENT);
-               if(block != NULL) block->reset_Blockbehavoir();
-            }
-             removeBomb(id);
+           if(ticks>TIME_EXPANDING_EXPLOSION)
+           {
+               for(int i=current_explosionsradius; i>=0 ;i--)
+                {
+                   Block * block;
+                   block = playfield->getBlock(BOMB_MIDDLE_X(rect().x()               ), BOMB_MIDDLE_Y(rect().y()+i*BLOCK_SIZE_Y),CURRENT);
+                   if(block != NULL) block->reset_Blockbehavoir();
+                   block = playfield->getBlock(BOMB_MIDDLE_X(rect().x()+i*BLOCK_SIZE_X), BOMB_MIDDLE_Y(rect().y()               ),CURRENT);
+                   if(block != NULL) block->reset_Blockbehavoir();
+                   block = playfield->getBlock(BOMB_MIDDLE_X(rect().x()               ), BOMB_MIDDLE_Y(rect().y()-i*BLOCK_SIZE_Y),CURRENT);
+                   if(block != NULL) block->reset_Blockbehavoir();
+                   block = playfield->getBlock(BOMB_MIDDLE_X(rect().x()-i*BLOCK_SIZE_X), BOMB_MIDDLE_Y(rect().y()               ),CURRENT);
+                   if(block != NULL) block->reset_Blockbehavoir();
+                }
+                removeBomb(id);
+           }
        }
     }
 

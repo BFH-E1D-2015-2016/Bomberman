@@ -11,7 +11,7 @@
 
 
 #define TIME_FUSE                   20
-#define TIME_EXPANDING_EXPLOSION    10
+#define TIME_EXPANDING_EXPLOSION    5
 
 
 class Bomb : public QGraphicsEllipseItem

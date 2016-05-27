@@ -13,23 +13,26 @@ void Block::set_Position(int XPos, int YPos)
 {
     setRect(XPos,YPos,BLOCK_SIZE_X,BLOCK_SIZE_Y);
 }
+
 int Block::exploding()
 {
     switch(Block_Behavoir)
     {
         case (MODE_SOLID):              //nichts passiert
         case (MODE_DEBUG):
-            return 0;
+             return 0;
 
         case (MODE_DESTROYABLE):        //Rot färben und den Block in einen Pfad verwandeln
-            set_Blockbehavoir(MODE_PATH);
-            Block_Behavoir_init= MODE_PATH;
-            setBrush(QBrush(Qt::red));
+            set_Blockbehavoir(MODE_EXPLOSION);
             return 0;
 
-        case (MODE_PATH):               //Rot färben
-            setBrush(QBrush(Qt::red));
+        case (MODE_PATH):
+            set_Blockbehavoir(MODE_EXPLOSION);
             return 1;
+
+        case (MODE_EXPLOSION):
+            return 1;
+
     }
 }
 
@@ -41,7 +44,9 @@ int Block::istWalkable()
         case (MODE_SOLID):          return 0;
         case (MODE_PATH):           return 1;
         case (MODE_DESTROYABLE):    return 0;
-        case(MODE_DEBUG):           return 1;
+        case (MODE_DEBUG):          return 1;
+        case (MODE_EXPLOSION):      return 1;
+
     }
 }
 
@@ -56,10 +61,11 @@ void Block::set_Blockbehavoir( s_blockbehavoir blockmode)
 
     switch(Block_Behavoir)
     {
-        case (MODE_SOLID):            setBrush(QBrush(Qt::darkGray)); break;
-        case (MODE_PATH):              setBrush(QBrush(Qt::white)); break;
-        case (MODE_DESTROYABLE):setBrush(QBrush(Qt::green)); break;
-        case(MODE_DEBUG):setBrush(QBrush(Qt::red)); break;
+        case (MODE_SOLID):            setBrush(QBrush(Qt::darkGray));   break;
+        case (MODE_PATH):             setBrush(QBrush(Qt::white));      break;
+        case (MODE_DESTROYABLE):      setBrush(QBrush(Qt::green));      break;
+        case(MODE_DEBUG):             setBrush(QBrush(Qt::blue));       break;
+        case(MODE_EXPLOSION):         setBrush(QBrush(Qt::red));        Block_Behavoir_init= MODE_PATH; break;
     }
 }
 s_blockbehavoir Block::get_Blockbehavoir()
