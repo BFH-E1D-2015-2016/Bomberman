@@ -28,4 +28,5 @@ int main(int argc, char *argv[])
         qDebug()<<"error: " << exc.what();
     }
 
+    return 0;
 }

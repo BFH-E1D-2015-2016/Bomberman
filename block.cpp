@@ -34,6 +34,7 @@ int Block::exploding()
             return 1;
 
     }
+    return 0;
 }
 
 int Block::istWalkable()
