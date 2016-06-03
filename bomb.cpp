@@ -3,45 +3,55 @@
 #include <algorithm>
 #include <vector>
 
-#define BOMB_SIZE_X 16
-#define BOMB_SIZE_Y 16
-#define BOMB_MIDDLE_X(x) (x + (BOMB_SIZE_X/2))
-#define BOMB_MIDDLE_Y(x) (x + (BOMB_SIZE_Y/2))
 
-std::vector<Bomb*> bombs;
-int bomb_count=0;
 
+std::vector<Bomb*> bombs; //In dieser Liste werden alle Bomben auf dem Spielfeld abgespeichert
+int bomb_count=0;         //anzahl Bomben die erstellt wurden um eine einmalige ID zu erhalten
+
+/*
+ * Konstuktor: Erstellt eine Bombe an der Position des aktuellen Spielers
+ */
 Bomb::Bomb(Playfield *Field, Player *Gameplayer, QGraphicsScene *Scene )
 {
-    id = bomb_count++;
+    id = bomb_count++; //einmalige ID abspeichern
 
     scene = Scene;
     playfield = Field;
     player =  Gameplayer;
 
-    setBomb();
+    setBomb(); //Bombe platzieren
 
-    bombs.push_back(this);
+    bombs.push_back(this); //in Liste abspeichern
 }
 
+/*
+ * Plaziert eine Bombe an der aktuellen Spielerposition
+ */
 void Bomb::setBomb()
 {
     setRect(player->Get_PlayerPos_X(),player->Get_PlayerPos_Y(),BOMB_SIZE_X,BOMB_SIZE_Y);
-    setBrush(QBrush(Qt::black));
+    setBrush(QBrush(Qt::black)); //Schwarze Bombe
 }
 
+/*
+ * Zeichnet die Bombe auf die Szene
+ */
 void Bomb::draw()
 {
      scene->addItem(this);
 }
 
+/*
+ * Wird zyklisch aufgerufen für eine Bombe. Hier ist das Verhalten definiert, wie die Lunte abbrennt
+ * und die Bombe explodiert, Blöcke zerstört, etc...
+ */
 void Bomb::burningFuse()
 {
-    ticks++;
+    ticks++;  //Timer für die Bombe incrementieren
 
-
-    if(current_explosionsradius == 0) //noch nicht explodiert
+    if(current_explosionsradius == 0) //Bombe ist noch nicht explodiert
     {
+        //Blombe Grau/Schwarz blinken lassen
         if((ticks/2)%2)
             setBrush(QBrush(Qt::black));
         else
@@ -55,22 +65,25 @@ void Bomb::burningFuse()
     }
     else
     {
-       if(current_explosionsradius <= player->Get_Bombintensity())
+       if(current_explosionsradius <= player->Get_Bombintensity()) //maximaler Ausbreitungsradius ist noch nicht erreicht
        {
-           if(ticks>TIME_EXPANDING_EXPLOSION)
+           if(ticks>TIME_EXPANDING_EXPLOSION)   //Wartezeit für nächste Explosionsstufe ist erreicht
            {
 
-              if(current_explosionsradius==1)
+              if(current_explosionsradius==1) //Erste Explosionsstufe
               {
+                    //Das Feld wo die Bombe drauf ist expodiert
                     playfield->getBlock(BOMB_MIDDLE_X(rect().x()), BOMB_MIDDLE_Y(rect().y()),CURRENT)->exploding();
+
+                    //"Bombe" verschwinden lassen
                     setBrush(QBrush(Qt::transparent));
                     setPen(QPen(Qt::transparent));
 
                     current_explosionsradius++;
               }
-              else
+              else //nicht erste Explosionsstufe
               {
-                  if(!wall_down && !wall_left && !wall_up && !wall_right)
+                  if(!wall_down && !wall_left && !wall_up && !wall_right) //frühzeitig abberech
                       current_explosionsradius = player->Get_Bombintensity();
                   else
                   {
@@ -117,7 +130,7 @@ void Bomb::burningFuse()
 int Bomb::getBombCount(Player * player)
 {
    int count = 0;
-   for(int i=0; i<bombs.size() ; i++)
+   for(unsigned int i=0; i<bombs.size() ; i++)
    {
       Bomb * bomb = bombs.at(i);
       if(bomb->player == player)
@@ -131,7 +144,7 @@ void Bomb::tick()
 {
     if(bombs.size()>0 )
     {
-         for(int i=0; i<bombs.size() ; i++)
+         for(unsigned int i=0; i<bombs.size() ; i++)
         {
            Bomb * bomb = bombs.at(i);
            bomb->burningFuse();
@@ -141,7 +154,7 @@ void Bomb::tick()
 }
 void Bomb::removeBomb(int id)
 {
-   for(int i=0; i<bombs.size() ; i++)
+   for(unsigned int i=0; i<bombs.size() ; i++)
    {
       Bomb * bomb = bombs.at(i);
       if(id == bomb->id)

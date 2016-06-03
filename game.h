@@ -9,12 +9,12 @@
 #include <QDebug>
 
 #include "playfield.h"
-#include "myrect.h"
 #include "bomb.h"
 #include "player.h"
 #include "block.h"
+#include "defines.h"
 
-#define GAME_UPDATEINTERVALL 33
+
 
 class Game : public QGraphicsView
 {
@@ -35,6 +35,7 @@ public:
 
         scene = NULL;
         this->destroy(true);
+
     }
 public slots:
     void gameloop();

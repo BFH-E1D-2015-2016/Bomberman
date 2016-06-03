@@ -1,7 +1,6 @@
 
 #include <QApplication>
 #include <QGraphicsView>
-#include "myrect.h"
 #include <QGraphicsScene>
 #include <QThread>
 #include "playfield.h"
@@ -15,9 +14,8 @@ int main(int argc, char *argv[])
     {
         QApplication a(argc, argv);
 
-        Game * game = new Game();
 
-
+        Game * game = new Game(); //Das Spiel wird erstellt und gestartet
 
         return a.exec();
 
@@ -30,3 +28,4 @@ int main(int argc, char *argv[])
 
     return 0;
 }
+

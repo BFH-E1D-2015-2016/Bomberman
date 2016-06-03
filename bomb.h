@@ -8,7 +8,12 @@
 #include "player.h"
 #include "block.h"
 #include "playfield.h"
+#include "defines.h"
 
+#define BOMB_SIZE_X (16 * GAMESCALE_FACTOR)
+#define BOMB_SIZE_Y (16 * GAMESCALE_FACTOR)
+#define BOMB_MIDDLE_X(x) (x + (BOMB_SIZE_X/2))
+#define BOMB_MIDDLE_Y(x) (x + (BOMB_SIZE_Y/2))
 
 #define TIME_FUSE                   20
 #define TIME_EXPANDING_EXPLOSION    5
@@ -19,6 +24,7 @@ class Bomb : public QGraphicsEllipseItem
 
 public:
     Bomb(Playfield *Field, Player *Gameplayer, QGraphicsScene *Scene );
+    ~Bomb(){};
     void setBomb();
     void burningFuse();
 

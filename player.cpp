@@ -66,18 +66,18 @@ void Player::gameLogic(int tick)
 
 void Player::move(int Key_Up, int Key_Down, int Key_Left, int Key_Right)
 {
-    int step=4, moveX=0, moveY=0;
+    int moveX=0, moveY=0;
 
     if(Key_Up)
-        moveY -= step;
+        moveY -= MOVE_PIXELS;
     if(Key_Down)
-        moveY += step;
+        moveY += MOVE_PIXELS;
 
     if(Key_Left)
-       moveX -= step;
+       moveX -= MOVE_PIXELS;
 
     if(Key_Right)
-       moveX += step;
+       moveX += MOVE_PIXELS;
 
     move(moveX, moveY);
 
@@ -153,9 +153,9 @@ void Player::move(int X, int Y)
 
                 //Eckt ein Ecke an? So verschiebe in X Richtung bis das Hinderniss nicht mehr im Weg ist
                 if(nextblock1->istWalkable()==0)
-                    x +=4;
+                    x +=MOVE_PIXELS;
                 if(nextblock2->istWalkable()==0)
-                    x -=4;
+                    x -=MOVE_PIXELS;
            }
            //Nach oben verschieben
            if(Y<0)
@@ -168,9 +168,9 @@ void Player::move(int X, int Y)
 
                 //Eckt ein Ecke an? So verschiebe in X Richtung bis das Hinderniss nicht mehr im Weg ist
                 if(nextblock1->istWalkable()==0)
-                    x +=4;
+                    x +=MOVE_PIXELS;
                 if(nextblock2->istWalkable()==0)
-                    x -=4;
+                    x -=MOVE_PIXELS;
             }
            //Nach rechts verschieben
            if(X>0)
@@ -183,9 +183,9 @@ void Player::move(int X, int Y)
 
                //Eckt ein Ecke an? So verschiebe in X Richtung bis das Hinderniss nicht mehr im Weg ist
                if(nextblock1->istWalkable()==0)
-                   y +=4;
+                   y +=MOVE_PIXELS;
                if(nextblock2->istWalkable()==0)
-                   y -=4;
+                   y -=MOVE_PIXELS;
            }
            //Nach links verschieben
            if(X<0)
@@ -198,9 +198,9 @@ void Player::move(int X, int Y)
 
                 //Eckt ein Ecke an? So verschiebe in X Richtung bis das Hinderniss nicht mehr im Weg ist
                 if(nextblock1->istWalkable()==0)
-                    y +=4;
+                    y +=MOVE_PIXELS;
                 if(nextblock2->istWalkable()==0)
-                    y -=4;
+                    y -=MOVE_PIXELS;
            }
        }
        setRect(x,y,PLAYER_SIZE_X,PLAYER_SIZE_Y);

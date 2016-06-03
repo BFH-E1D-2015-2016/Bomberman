@@ -23,13 +23,13 @@ void Game::init()
    gametick=0;
 
     QMessageBox *box = new QMessageBox();
-    box->setText("Bomberman V1.0\n*****************\n\nSpieler Blau\n  Bewegen: Pfeiltasten \n  Bombe: Space\n\nSpieler Gelb\n  Bewegen: WASD \n  Bombe: Tab");
+    box->setText("Bomberman V1.0\n*****************\n\nSpieler Blau\n  Bewegen: Pfeiltasten \n  Bombe: Space\n\nSpieler Grün\n  Bewegen: WASD \n  Bombe: Tab\n\n Esc: Neustart");
     box->exec();
 
     // Spielfelg generieren
     playfield = new Playfield();
     player1   = new Player(playfield,BLOCK_SIZE_X*1 ,  BLOCK_SIZE_Y*1 , QBrush(Qt::blue));
-    player2   = new Player(playfield,BLOCK_SIZE_X*17,  BLOCK_SIZE_Y*13, QBrush(Qt::yellow));
+    player2   = new Player(playfield,BLOCK_SIZE_X*17,  BLOCK_SIZE_Y*13, QBrush(QColor(0,128,0))); //Grün
 
     //Scene erstellen
     scene = new QGraphicsScene();
@@ -61,14 +61,14 @@ void Game::gameloop()
             }
             else
             {
-                 box->setText(" Spieler Gelb gewinnt!");
+                 box->setText(" Spieler Grün gewinnt!");
             }
         }
         else
         {
               box->setText(" Spieler Blau gewinnt!");
         }
-
+        hide();
         box->exec();
         init();
 
