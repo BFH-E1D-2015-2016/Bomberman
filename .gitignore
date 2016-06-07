@@ -1,4 +1,6 @@
 *.pro.user
 *.autosave
+*.dll
+*.o
 build/
 debug/
