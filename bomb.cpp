@@ -87,7 +87,7 @@ void Bomb::burningFuse()
                       current_explosionsradius = player->Get_Bombintensity();
                   else
                   {
-                      for(int i=1; i<current_explosionsradius; i++)
+                      for(int i=1; i<current_explosionsradius; i++) //Explosion in jede Ricung verbreiten
                       {
                           if(wall_down) wall_down  = playfield->getBlock(BOMB_MIDDLE_X(rect().x()               ), BOMB_MIDDLE_Y(rect().y()+i*BLOCK_SIZE_Y),CURRENT)->exploding();
                           if(wall_left) wall_left  = playfield->getBlock(BOMB_MIDDLE_X(rect().x()+i*BLOCK_SIZE_X), BOMB_MIDDLE_Y(rect().y()               ),CURRENT)->exploding();
@@ -104,6 +104,7 @@ void Bomb::burningFuse()
       {
            if(ticks>TIME_EXPANDING_EXPLOSION)
            {
+               //Explosion entfernen
                for(int i=current_explosionsradius; i>=0 ;i--)
                 {
                    Block * block;
@@ -116,7 +117,7 @@ void Bomb::burningFuse()
                    block = playfield->getBlock(BOMB_MIDDLE_X(rect().x()-i*BLOCK_SIZE_X), BOMB_MIDDLE_Y(rect().y()               ),CURRENT);
                    if(block != NULL) block->reset_Blockbehavoir();
                 }
-                removeBomb(id);
+                removeBomb(id); //Bombe aus Liste löschen
            }
        }
     }

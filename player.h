@@ -1,7 +1,6 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-
 #include <QObject>
 #include <QGraphicsRectItem>
 #include <QDebug>
@@ -22,7 +21,6 @@ class Player :public QGraphicsRectItem
 {
 
 public:
-    Player(Playfield * field);
     Player(Playfield *field, int X, int Y, QBrush brush);
     ~Player(){};
     void move(int X, int Y);

@@ -1,28 +1,21 @@
 #include "player.h"
 
+/*
+ * Spieler erzeugen
+ */
 
-Player::Player(Playfield *field)
-{
-    setBrush(QBrush(Qt::blue));
-    playfield = field;
-    x=0;
-    y=0;
-    setRect(0,0,PLAYER_SIZE_X,PLAYER_SIZE_Y);
-
-
-}
 Player::Player(Playfield *field, int X, int Y, QBrush brush)
 {
-
    playfield = field;
    x=X;
    y=Y;
    playerColor = brush;
-
    setColor(playerColor);
    setRect(x,y,PLAYER_SIZE_X,PLAYER_SIZE_Y);
-
 }
+/*
+ * Spieler bewegen, sterben, blinken...
+ */
 void Player::gameLogic(int tick)
 {
     move(Key_Up, Key_Down, Key_Left, Key_Right); //Spieler bewegen
@@ -36,11 +29,12 @@ void Player::gameLogic(int tick)
     }
     else
     {
+        //normales Verhalten
          move_interdiction = false;
          setColor(playerColor);
     }
 
-    if(lives==0)
+    if(lives==0) //Ist der Spieler tot, kann er sich nicht mehr bewegen
         move_interdiction = true;
 
     //Blinkenlassen wenn im Explosionsradius
@@ -59,56 +53,7 @@ void Player::gameLogic(int tick)
             else
                 setColor(Qt::black);
     }
-
-
-
 }
-
-void Player::move(int Key_Up, int Key_Down, int Key_Left, int Key_Right)
-{
-    int moveX=0, moveY=0;
-
-    if(Key_Up)
-        moveY -= MOVE_PIXELS;
-    if(Key_Down)
-        moveY += MOVE_PIXELS;
-
-    if(Key_Left)
-       moveX -= MOVE_PIXELS;
-
-    if(Key_Right)
-       moveX += MOVE_PIXELS;
-
-    move(moveX, moveY);
-
-}
-
-int Player::Get_PlayerPos_X()
-{
-    return x;
-}
-
-int Player::Get_PlayerPos_Y()
-{
-    return y;
-}
-
-int Player::Get_MaxBombCount()
-{
-    return bomb_max_count;
-}
-
-int Player::Get_Bombintensity()
-{
-    return bomb_intensity;
-}
-
-int Player::Get_Lives()
-{
-    return lives;
-}
-
-
 
 Block* Player::getCurrentBlockPosition()
 {
@@ -132,9 +77,33 @@ void Player::setColor(QBrush brush)
      setBrush(brush);
 }
 
+/*
+ * Verschiebt den Spieler mittels Tasten
+ */
+void Player::move(int Key_Up, int Key_Down, int Key_Left, int Key_Right)
+{
+    int moveX=0, moveY=0;
+
+    //Pixel berechnen
+    if(Key_Up)
+        moveY -= MOVE_PIXELS;
+    if(Key_Down)
+        moveY += MOVE_PIXELS;
+
+    if(Key_Left)
+       moveX -= MOVE_PIXELS;
+
+    if(Key_Right)
+       moveX += MOVE_PIXELS;
+
+    move(moveX, moveY); //Bewegen
+}
+
+/*
+ * Bewegt den Spieler um X und Y Pixel in die gewählte Richtung
+ */
 void Player::move(int X, int Y)
 {
-
    if((x+X)>=0 && (y+Y)>=0 && move_interdiction==0) // Spielfeldbegrenzung keine neg.Position
    {
        if(playfield != NULL)
@@ -205,4 +174,29 @@ void Player::move(int X, int Y)
        }
        setRect(x,y,PLAYER_SIZE_X,PLAYER_SIZE_Y);
   }
+}
+
+int Player::Get_PlayerPos_X()
+{
+    return x;
+}
+
+int Player::Get_PlayerPos_Y()
+{
+    return y;
+}
+
+int Player::Get_MaxBombCount()
+{
+    return bomb_max_count;
+}
+
+int Player::Get_Bombintensity()
+{
+    return bomb_intensity;
+}
+
+int Player::Get_Lives()
+{
+    return lives;
 }

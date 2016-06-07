@@ -10,7 +10,7 @@
 #define PLAYFIELD_SIZE_X     19
 #define PLAYFIELD_SIZE_Y     15
 
-
+//Nachbarblöcke
 enum Nextblock
 {
     UP=0,
@@ -27,14 +27,12 @@ public:
     Playfield();
     ~Playfield(){};
     void Draw(QGraphicsScene *scene);
-    void current_hightlite(int PosX, int PosY);
-
     Block *getBlock(int PosX, int PosY, Nextblock dir);
 private:
     s_blockbehavoir Block_Behavoir;
     s_blockbehavoir Block_Behavoir_init;
 
-    Block * playfieldBlocks [PLAYFIELD_SIZE_Y][PLAYFIELD_SIZE_X];
-    Block  *  hightlite_block;
+    Block *playfieldBlocks [PLAYFIELD_SIZE_Y][PLAYFIELD_SIZE_X];
+
 };
 #endif // PLAYFIELD_H

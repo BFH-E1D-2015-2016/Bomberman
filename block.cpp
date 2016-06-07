@@ -30,8 +30,7 @@ int Block::exploding()
     switch(Block_Behavoir)
     {
         case (MODE_SOLID):              //nichts passiert
-        case (MODE_DEBUG):
-             return 0;
+            return 0;
 
         case (MODE_DESTROYABLE):
             set_Blockbehavoir(MODE_EXPLOSION);
@@ -60,7 +59,6 @@ int Block::istWalkable()
         case (MODE_SOLID):          return 0;
         case (MODE_PATH):           return 1;
         case (MODE_DESTROYABLE):    return 0;
-        case (MODE_DEBUG):          return 1;
         case (MODE_EXPLOSION):      return 1;
 
     }
@@ -84,10 +82,9 @@ void Block::set_Blockbehavoir( s_blockbehavoir blockmode)
 
     switch(Block_Behavoir)
     {
-        case (MODE_SOLID):            setBrush(QBrush(QColor(150,150,150)));   break; //grau
+        case (MODE_SOLID):            setBrush(QBrush(QColor(150,150,150)));   break; //grau        
         case (MODE_PATH):             setBrush(QBrush(QColor(242,225,115)));   break; //Sandfarbe
         case (MODE_DESTROYABLE):      setBrush(QBrush(QColor(128,64,0)));      break; //braun
-        case (MODE_DEBUG):            setBrush(QBrush(Qt::blue));              break; //blau
         case (MODE_EXPLOSION):        setBrush(QBrush(Qt::red));                      //rot
                                       Block_Behavoir_init= MODE_PATH;          break; //nach der Explosion muss dieser Block zu einem Pfad werden
     }

@@ -1,54 +1,67 @@
 ﻿#include "game.h"
 #include <QMessageBox>
+#include <QApplication>
 
+/*
+ * Konstruktor
+ */
 Game::Game()
 {
     //Spieltimer initsialisieren
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()),this,SLOT(gameloop()));
 
-    init();
+    init(); // Initsialisiert alle Spielrelevanten Daten
 
     //Timer starten
     timer->start(GAME_UPDATEINTERVALL);
 }
-
+/*
+ * Gamedestruktor
+ */
 Game::~Game()
 {
-    timer->stop();
 }
 
+/*
+ * Alle spielrelevanten Daten initsialisieren und Startscreen anzeigen
+ */
 void Game::init()
 {
    gametick=0;
 
+    //Startscreen
     QMessageBox *box = new QMessageBox();
     box->setText("Bomberman V1.0\n*****************\n\nSpieler Blau\n  Bewegen: Pfeiltasten \n  Bombe: Space\n\nSpieler Grün\n  Bewegen: WASD \n  Bombe: Tab\n\n Esc: Neustart");
     box->exec();
 
+
     // Spielfelg generieren
     playfield = new Playfield();
-    player1   = new Player(playfield,BLOCK_SIZE_X*1 ,  BLOCK_SIZE_Y*1 , QBrush(Qt::blue));
-    player2   = new Player(playfield,BLOCK_SIZE_X*17,  BLOCK_SIZE_Y*13, QBrush(QColor(0,128,0))); //Grün
+    player1   = new Player(playfield,BLOCK_SIZE_X*1 ,  BLOCK_SIZE_Y*1 , QBrush(Qt::blue)); //Spieler in Feld 1x1
+    player2   = new Player(playfield,BLOCK_SIZE_X*17,  BLOCK_SIZE_Y*13, QBrush(QColor(0,128,0))); //Spielder Grün in Feld 17x13
 
     //Scene erstellen
     scene = new QGraphicsScene();
 
-    //Spielfeld zeichen
+    //Spielfeld und Spieler zeichen
     playfield->Draw(scene);
     scene->addItem(player1);
     scene->addItem(player2);
 }
-
+/*
+ * Wird zyklisch aufgerufen, hier wird der Spielablauf kontrolliert
+ */
 void Game::gameloop()
 {
-    gametick++;
-
+    gametick++; //Zähler
     Bomb::tick(); // Timer der Bomben triggern
 
+    //Spieler bewegen, Bomben plazieren...
     player1->gameLogic(gametick);
     player2->gameLogic(gametick);
 
+    //Gameover? Gewinner anzeigen und Startscreen aufrufen
     if(player1->Get_Lives()==0 || player2->Get_Lives() ==0)
     {
         QMessageBox *box = new QMessageBox();
@@ -70,36 +83,41 @@ void Game::gameloop()
         }
         hide();
         box->exec();
-        init();
+        init(); //Rücksetzen des Spiels
 
     }
 
-    if (player1->Key_Bomb) // Spieler 1 Bombe plaztieren
+    // Spieler 1 Bombe plaztieren
+    if (player1->Key_Bomb)
     {
         player1->Key_Bomb=0;
 
         if(Bomb::getBombCount(player1) < player1->Get_MaxBombCount()) //nur wenn noch Bomben verfügbar
         {
             Bomb * bomb = new Bomb(playfield,player1,scene);
-            bomb->draw();
+            bomb->draw(); // Zeichnen
         }
     }
 
-    if (player2->Key_Bomb) // Spieler 2 Bombe plaztieren
+    // Spieler 2 Bombe plaztieren
+    if (player2->Key_Bomb)
     {
         player2->Key_Bomb=0;
 
         if(Bomb::getBombCount(player2) < player2->Get_MaxBombCount()) //nur wenn noch Bomben verfügbar
         {
             Bomb * bomb = new Bomb(playfield,player2,scene);
-            bomb->draw();
+            bomb->draw(); // Zeichnen
         }
     }
 
 
-    draw();
+    draw(); //Spiel aktualisieren
 }
 
+/*
+ * Zeichnet das Spielfeld
+ */
 void Game::draw()
 {
 
@@ -109,7 +127,9 @@ void Game::draw()
     setFocus();
 }
 
-
+/*
+ * Tastenhandling, Taste gedrückt
+ */
 void Game::keyPressEvent(QKeyEvent *event)
 {
     int count = event->count();
@@ -151,7 +171,9 @@ void Game::keyPressEvent(QKeyEvent *event)
 
     }
 }
-
+/*
+ * Tastenhandling, Taste losgelassen
+ */
 void Game::keyReleaseEvent(QKeyEvent *event)
 {
     int count = event->count();
