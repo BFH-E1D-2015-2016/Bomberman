@@ -13,7 +13,6 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp \
-    myrect.cpp \
     playfield.cpp \
     block.cpp \
     player.cpp \
@@ -21,7 +20,6 @@ SOURCES += main.cpp \
     bomb.cpp
 
 HEADERS  += \
-    myrect.h \
     playfield.h \
     block.h \
     player.h \
